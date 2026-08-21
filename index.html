@@ -288,6 +288,7 @@
     flex-direction: column;
     gap: 14px;
     transition: background 0.15s ease;
+    cursor: pointer;
   }
   .cat-card:hover{ background: var(--surface-raised); }
   .cat-card svg{ width: 30px; height: 30px; color: var(--metal); }
@@ -672,14 +673,14 @@
       </div>
 
       <div class="cat-grid">
-        <div class="cat-card"><svg><use href="#cat-motor"/></svg><div class="cat-name">Motor</div><div class="cat-hint">Blocks, pistones, bombas, correas</div></div>
-        <div class="cat-card"><svg><use href="#cat-frenos"/></svg><div class="cat-name">Frenos</div><div class="cat-hint">Discos, pastillas, cilindros</div></div>
-        <div class="cat-card"><svg><use href="#cat-suspension"/></svg><div class="cat-name">Suspensión y dirección</div><div class="cat-hint">Amortiguadores, rótulas, cremalleras</div></div>
-        <div class="cat-card"><svg><use href="#cat-electrico"/></svg><div class="cat-name">Eléctrico</div><div class="cat-hint">Alternadores, partidas, sensores</div></div>
-        <div class="cat-card"><svg><use href="#cat-carroceria"/></svg><div class="cat-name">Carrocería y espejos</div><div class="cat-hint">Parachoques, tapas, espejos</div></div>
-        <div class="cat-card"><svg><use href="#cat-transmision"/></svg><div class="cat-name">Transmisión</div><div class="cat-hint">Cajas, embragues, homocinéticas</div></div>
-        <div class="cat-card"><svg><use href="#cat-clima"/></svg><div class="cat-name">Climatización</div><div class="cat-hint">Compresores, radiadores, condensadores</div></div>
-        <div class="cat-card"><svg><use href="#cat-luces"/></svg><div class="cat-name">Iluminación</div><div class="cat-hint">Focos, ópticas, neblineros</div></div>
+        <div class="cat-card" data-cat="Motor" role="button" tabindex="0"><svg><use href="#cat-motor"/></svg><div class="cat-name">Motor</div><div class="cat-hint">Blocks, pistones, bombas, correas</div></div>
+        <div class="cat-card" data-cat="Frenos" role="button" tabindex="0"><svg><use href="#cat-frenos"/></svg><div class="cat-name">Frenos</div><div class="cat-hint">Discos, pastillas, cilindros</div></div>
+        <div class="cat-card" data-cat="Suspensión y dirección" role="button" tabindex="0"><svg><use href="#cat-suspension"/></svg><div class="cat-name">Suspensión y dirección</div><div class="cat-hint">Amortiguadores, rótulas, cremalleras</div></div>
+        <div class="cat-card" data-cat="Eléctrico" role="button" tabindex="0"><svg><use href="#cat-electrico"/></svg><div class="cat-name">Eléctrico</div><div class="cat-hint">Alternadores, partidas, sensores</div></div>
+        <div class="cat-card" data-cat="Carrocería y espejos" role="button" tabindex="0"><svg><use href="#cat-carroceria"/></svg><div class="cat-name">Carrocería y espejos</div><div class="cat-hint">Parachoques, tapas, espejos</div></div>
+        <div class="cat-card" data-cat="Transmisión" role="button" tabindex="0"><svg><use href="#cat-transmision"/></svg><div class="cat-name">Transmisión</div><div class="cat-hint">Cajas, embragues, homocinéticas</div></div>
+        <div class="cat-card" data-cat="Climatización" role="button" tabindex="0"><svg><use href="#cat-clima"/></svg><div class="cat-name">Climatización</div><div class="cat-hint">Compresores, radiadores, condensadores</div></div>
+        <div class="cat-card" data-cat="Iluminación" role="button" tabindex="0"><svg><use href="#cat-luces"/></svg><div class="cat-name">Iluminación</div><div class="cat-hint">Focos, ópticas, neblineros</div></div>
       </div>
 
       <p class="cat-note">¿No encuentras tu categoría o repuesto? <a href="#cotizador">Cotiza igual, lo buscamos por ti →</a></p>
@@ -900,6 +901,24 @@
     a.addEventListener('click', function(){
       mobileMenu.classList.remove('open');
       menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Catalog cards jump straight to the quote form and pre-fill the part
+  // field with the chosen category, so the visitor only has to add
+  // brand/model/year instead of starting from a blank form.
+  const qRepuestoInput = document.getElementById('qRepuesto');
+  const qMarcaInput = document.getElementById('qMarca');
+  document.querySelectorAll('.cat-card').forEach(function(card){
+    function goToQuote(){
+      const cat = card.getAttribute('data-cat');
+      if (qRepuestoInput && cat) qRepuestoInput.value = cat;
+      document.getElementById('cotizador').scrollIntoView({behavior: 'smooth'});
+      if (qMarcaInput) window.setTimeout(function(){ qMarcaInput.focus(); }, 450);
+    }
+    card.addEventListener('click', goToQuote);
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); goToQuote(); }
     });
   });
 
