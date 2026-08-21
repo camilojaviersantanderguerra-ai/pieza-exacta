@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Pieza Exacta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #15171A;
+    --surface: #1F2226;
+    --surface-raised: #262A2F;
+    --surface-2: #2C3036;
+    --accent: #D9691E;
+    --accent-bright: #EB8A48;
+    --accent-dim: #A85217;
+    --text: #F4F1EC;
+    --text-dim: #B7B2A8;
+    --text-faint: #8B877E;
+    --metal: #9CA3AF;
+    --metal-dim: #6B7280;
+    --line: rgba(156,163,175,0.16);
+    --line-strong: rgba(156,163,175,0.3);
+    --shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+    --radius: 3px;
+    --radius-sm: 2px;
+    --font-display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
+    --font-body: "Work Sans", "Segoe UI", system-ui, sans-serif;
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3,.wordmark{
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  p{ margin: 0; }
+  a{ color: inherit; }
+
+  .eyebrow{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .container{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  section{ position: relative; }
+  section[id]{ scroll-margin-top: 92px; }
+
+  .tabular{ font-variant-numeric: tabular-nums; }
+
+  ::selection{ background: var(--accent-dim); color: var(--text); }
+
+  :focus-visible{
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+  }
+
+  .metal-seam{
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--metal-dim) 0px, var(--metal-dim) 1px,
+      transparent 1px, transparent 6px
+    );
+    opacity: 0.35;
+  }
+
+  header.nav{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(21,23,26,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 76px;
+  }
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .brand svg{ width: 40px; height: 40px; flex-shrink: 0; }
+  .brand .wordmark{ font-size: 1.5rem; letter-spacing: 0.03em; white-space: nowrap; }
+  .brand .wordmark em{ font-style: normal; color: var(--accent); }
+
+  nav.links{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  nav.links a{
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.15s ease;
+  }
+  nav.links a:hover{ color: var(--text); }
+
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    white-space: nowrap;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn-primary{ background: var(--accent); color: #15100a; }
+  .btn-primary:hover{ background: var(--accent-bright); }
+  .btn-ghost{ background: transparent; color: var(--text); border-color: var(--line-strong); }
+  .btn-ghost:hover{ border-color: var(--metal); background: rgba(156,163,175,0.06); }
+  .btn-block{ width: 100%; }
+
+  .nav-cta{ display: flex; align-items: center; gap: 14px; }
+  .menu-toggle{ display: none; }
+  .mobile-menu{ display: none; }
+
+  @media (max-width: 860px){
+    nav.links{ display: none; }
+    .menu-toggle{
+      display: inline-flex; align-items: center; justify-content: center;
+      background: none; border: 1px solid var(--line-strong);
+      color: var(--text); width: 40px; height: 40px; border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .mobile-menu{
+      flex-direction: column;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 8px 32px 18px;
+    }
+    .mobile-menu.open{ display: flex; }
+    .mobile-menu a{
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-weight: 500;
+    }
+    .mobile-menu a:last-child{ border-bottom: none; }
+  }
+
+  @media (max-width: 480px){
+    .nav-cta .btn-primary{ display: none; }
+    .mobile-menu a.mobile-cta{
+      color: #15100a;
+      background: var(--accent);
+      border-radius: var(--radius-sm);
+      border-bottom: none;
+      text-align: center;
+      font-weight: 700;
+      margin-top: 10px;
+      padding: 12px 0;
+    }
+  }
+
+  .hero{
+    padding: 96px 0 76px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 78% -10%, rgba(217,105,30,0.12), transparent 60%),
+      var(--bg);
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1{
+    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    margin: 18px 0 22px;
+  }
+  .hero h1 .accent-line{ color: var(--accent); }
+  .hero-sub{
+    max-width: 52ch;
+    color: var(--text-dim);
+    font-size: 1.08rem;
+  }
+  .hero-actions{
+    display: flex;
+    gap: 16px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-visual{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual svg{ width: 100%; max-width: 440px; height: auto; }
+  .gear-spin{
+    transform-origin: 100px 100px;
+    animation: spin 26s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .gear-spin{ animation: none; } }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .route-dash{ stroke-dasharray: 1 7; }
+  .route-anim{ animation: dashmove 3.4s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .route-anim{ animation: none; } }
+  @keyframes dashmove{ to{ stroke-dashoffset: -32; } }
+
+  .stat-strip{
+    margin-top: 68px;
+    padding-top: 34px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .stat{ display: flex; align-items: flex-start; gap: 14px; }
+  .stat svg{ width: 26px; height: 26px; flex-shrink: 0; color: var(--accent); margin-top: 2px; }
+  .stat .stat-num{ font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.02em; }
+  .stat .stat-label{ color: var(--text-dim); font-size: 0.88rem; }
+
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-visual{ order: -1; max-width: 320px; margin: 0 auto; }
+    .stat-strip{ grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  .section{ padding: 88px 0; }
+  .section-alt{ background: var(--surface); }
+  .section-head{ max-width: 62ch; margin-bottom: 46px; }
+  .section-head h2{ font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-top: 12px; }
+  .section-head p{ color: var(--text-dim); margin-top: 14px; font-size: 1.03rem; }
+
+  .cat-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .cat-card{
+    background: var(--bg);
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.15s ease;
+  }
+  .cat-card:hover{ background: var(--surface-raised); }
+  .cat-card svg{ width: 30px; height: 30px; color: var(--metal); }
+  .cat-card:hover svg{ color: var(--accent); }
+  .cat-card .cat-name{ font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.02em; }
+  .cat-card .cat-hint{ color: var(--text-faint); font-size: 0.85rem; }
+  @media (max-width: 900px){ .cat-grid{ grid-template-columns: repeat(2, 1fr); } }
+
+  .cat-note{
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .cat-note a{ color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+  .quote-wrap{
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .quote-promise{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .promise-item{ display: flex; gap: 14px; }
+  .promise-item svg{ width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; margin-top: 3px; }
+  .promise-item .promise-title{ font-weight: 600; }
+  .promise-item .promise-text{ color: var(--text-dim); font-size: 0.92rem; margin-top: 3px; }
+
+  form.quote-form{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    display: grid;
+    gap: 18px;
+  }
+  .field-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field{ display: flex; flex-direction: column; gap: 7px; }
+  .field label{ font-size: 0.82rem; font-weight: 600; color: var(--text-dim); }
+  .field label .req{ color: var(--accent); }
+  .field input, .field select{
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.96rem;
+  }
+  .field input::placeholder{ color: var(--text-faint); }
+  .field input:focus, .field select:focus{ border-color: var(--accent); }
+  @media (max-width: 700px){ .field-row{ grid-template-columns: 1fr; } .quote-wrap{ grid-template-columns: 1fr; } }
+
+  .quote-result{
+    margin-top: 6px;
+    padding: 20px;
+    border: 1px dashed var(--accent-dim);
+    border-radius: var(--radius-sm);
+    background: rgba(217,105,30,0.07);
+    display: none;
+    gap: 6px;
+    flex-direction: column;
+  }
+  .quote-result.show{ display: flex; }
+  .quote-result .qr-code{ font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.03em; color: var(--accent); }
+  .quote-result .qr-text{ color: var(--text-dim); font-size: 0.92rem; }
+
+  .track-box{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+  .track-search{ display: flex; gap: 12px; max-width: 480px; }
+  .track-search input{
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    color: var(--text);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+  }
+  .track-steps{
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .track-step{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    position: relative;
+    padding: 0 12px;
+  }
+  .track-step::before{
+    content: "";
+    position: absolute;
+    top: 19px;
+    left: -50%;
+    width: 100%;
+    height: 2px;
+    background: var(--line-strong);
+    z-index: 0;
+  }
+  .track-step:first-child::before{ display: none; }
+  .track-step.done::before{ background: var(--accent); }
+  .step-dot{
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--line-strong);
+    background: var(--bg);
+    color: var(--text-faint);
+    z-index: 1;
+    font-weight: 700;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .track-step.done .step-dot{ border-color: var(--accent); color: var(--accent); }
+  .track-step.current .step-dot{ background: var(--accent); border-color: var(--accent); color: #15100a; }
+  .step-label{ font-weight: 600; font-size: 0.94rem; }
+  .step-sub{ color: var(--text-faint); font-size: 0.8rem; max-width: 20ch; }
+  @media (max-width: 640px){
+    .track-steps{ grid-template-columns: 1fr; gap: 28px; }
+    .track-step::before{ display: none; }
+  }
+  .track-hint{ margin-top: 22px; color: var(--text-faint); font-size: 0.85rem; }
+
+  .coverage-wrap{
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .coverage-map{ display: flex; justify-content: center; align-items: flex-start; height: 460px; }
+  .coverage-map svg{ height: 100%; width: auto; max-width: 100%; }
+  @media (max-width: 900px){ .coverage-map{ height: 340px; } }
+  .tier-list{ display: grid; gap: 16px; }
+  .tier{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .tier-badge{
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    height: fit-content;
+    white-space: nowrap;
+  }
+  .tier-title{ font-weight: 700; margin-bottom: 4px; }
+  .tier-text{ color: var(--text-dim); font-size: 0.92rem; }
+  @media (max-width: 900px){ .coverage-wrap{ grid-template-columns: 1fr; } }
+
+  footer{ background: var(--bg); border-top: 1px solid var(--line); padding: 64px 0 32px; }
+  .footer-grid{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand .brand{ margin-bottom: 14px; }
+  .footer-tagline{ color: var(--text-dim); font-size: 0.92rem; max-width: 34ch; }
+  .footer-col h4{
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 16px;
+  }
+  .footer-col ul{ list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .footer-col a, .footer-col span{ color: var(--text-dim); text-decoration: none; font-size: 0.92rem; }
+  .footer-col a:hover{ color: var(--text); }
+  .pending{ color: var(--text-faint); font-style: italic; }
+  .pay-row{ display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+  .pay-chip{
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  .footer-legal{
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: var(--text-faint);
+    font-size: 0.82rem;
+  }
+  @media (max-width: 860px){ .footer-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px){ .footer-grid{ grid-template-columns: 1fr; } }
+</style>
+<meta name="description" content="Repuestos de auto usados con despacho a todo Chile desde la zona franca de Iquique. Cotiza en minutos y recibe respuesta en menos de 24 horas.">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+
+  <symbol id="mark-compact" viewBox="0 0 200 200">
+    <path d="M 149.26,91.40 L 161.72,94.17 L 161.72,105.83 L 149.26,108.60 L 144.90,122.00 L 153.37,131.56 L 146.51,141.00 L 134.80,135.91 L 123.40,144.19 L 124.62,156.90 L 113.52,160.51 L 107.05,149.50 L 92.95,149.50 L 86.48,160.51 L 75.38,156.90 L 76.60,144.19 L 65.20,135.91 L 53.49,141.00 L 46.63,131.56 L 55.10,122.00 L 50.74,108.60 L 38.28,105.83 L 38.28,94.17 L 50.74,91.40 L 55.10,78.00 L 46.63,68.44 L 53.49,59.00 L 65.20,64.09 L 76.60,55.81 L 75.38,43.10 L 86.48,39.49 L 92.95,50.50 L 107.05,50.50 L 113.52,39.49 L 124.62,43.10 L 123.40,55.81 L 134.80,64.09 L 146.51,59.00 L 153.37,68.44 L 144.90,78.00 Z"
+      fill="none" stroke="#9CA3AF" stroke-width="4" stroke-linejoin="round"/>
+    <circle cx="100" cy="100" r="34" fill="none" stroke="#9CA3AF" stroke-width="4"/>
+    <path d="M 72,72 L 91,72 A 6,6 0 0 1 103,72 L 128,72 L 128,90 A 10,10 0 0 1 128,110 L 128,128 L 103,128 A 6,6 0 0 1 91,128 L 72,128 L 72,110 A 10,10 0 0 0 72,90 Z" fill="#D9691E"/>
+  </symbol>
+
+  <symbol id="stat-tag" viewBox="0 0 24 24"><path d="M3 11 11 3h7a3 3 0 0 1 3 3v7l-8 8-10-10Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="15" cy="9" r="1.7" fill="currentColor"/></symbol>
+  <symbol id="stat-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="stat-map" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="9.3" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+
+  <symbol id="prom-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5v5l3.2 1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="prom-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="15.3" y1="15.3" x2="20.5" y2="20.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="prom-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 3.5V16H4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="prom-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+  <symbol id="cat-motor" viewBox="0 0 24 24">
+    <rect x="4" y="9" width="14" height="9" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <line x1="7" y1="9" x2="7" y2="6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="11" y1="9" x2="11" y2="5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="15" y1="9" x2="15" y2="6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="8" cy="15" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="18" y1="13" x2="21" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cat-frenos" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <circle cx="12" cy="6.5" r="1.1" fill="currentColor"/><circle cx="12" cy="17.5" r="1.1" fill="currentColor"/>
+    <circle cx="6.5" cy="12" r="1.1" fill="currentColor"/><circle cx="17.5" cy="12" r="1.1" fill="currentColor"/>
+    <path d="M15 5.5a8 8 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  </symbol>
+  <symbol id="cat-suspension" viewBox="0 0 24 24">
+    <path d="M9 3v2M9 19v2M9 5l4 1.4-4 1.4 4 1.4-4 1.4 4 1.4-4 1.4L13 15l-4 1.4V19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="17" cy="17" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <line x1="17" y1="17" x2="17" y2="14.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cat-electrico" viewBox="0 0 24 24"><path d="M13 2 5 14h6l-1 8 9-13h-6l0-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="cat-carroceria" viewBox="0 0 24 24">
+    <path d="M8 5c3-1.5 5-1.5 8 0l2 3.5v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="9" cy="16.5" r="1" fill="currentColor"/><circle cx="15" cy="16.5" r="1" fill="currentColor"/>
+  </symbol>
+  <symbol id="cat-transmision" viewBox="0 0 24 24">
+    <circle cx="9" cy="9" r="4.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="16" cy="16" r="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <line x1="6.5" y1="12" x2="13.3" y2="13.3" stroke="currentColor" stroke-width="1.3"/>
+  </symbol>
+  <symbol id="cat-clima" viewBox="0 0 24 24">
+    <rect x="4" y="6" width="16" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <line x1="7" y1="10" x2="17" y2="10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="7" y1="13.3" x2="17" y2="13.3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="7" y1="16.6" x2="14" y2="16.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="cat-luces" viewBox="0 0 24 24">
+    <path d="M9 16h6M10 19h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M12 2a6 6 0 0 0-3.5 10.9c.7.5 1 1 1 1.9h5c0-.9.3-1.4 1-1.9A6 6 0 0 0 12 2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="ico-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ico-truck" viewBox="0 0 24 24"><rect x="2" y="8" width="12" height="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 11h4l3 3v2h-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+
+</defs>
+</svg>
+
+<header class="nav">
+  <div class="container nav-row">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 200 200"><use href="#mark-compact"/></svg>
+      <span class="wordmark">PIEZA <em>EXACTA</em></span>
+    </a>
+    <nav class="links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#cotizador">Cotizador</a>
+      <a href="#seguimiento">Seguimiento</a>
+      <a href="#cobertura">Cobertura</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#cotizador" class="btn btn-primary">Cotiza ahora</a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+        <svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#catalogo">Catálogo</a>
+    <a href="#cotizador">Cotizador</a>
+    <a href="#seguimiento">Seguimiento</a>
+    <a href="#cobertura">Cobertura</a>
+    <a href="#cotizador" class="mobile-cta">Cotiza ahora</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Repuestos usados · Despacho a todo Chile</p>
+        <h1>La pieza <span class="accent-line">exacta</span>,<br>donde sea que estés.</h1>
+        <p class="hero-sub">Cotiza el repuesto que necesitas y nuestro equipo lo busca por ti en desarmadurías y contactos de confianza — con el precio de la zona franca de Iquique y despacho a cualquier región del país.</p>
+        <div class="hero-actions">
+          <a href="#cotizador" class="btn btn-primary">Cotiza tu repuesto</a>
+          <a href="#catalogo" class="btn btn-ghost">Ver categorías</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 320 220">
+          <g class="gear-spin">
+            <path d="M 149.26,91.40 L 161.72,94.17 L 161.72,105.83 L 149.26,108.60 L 144.90,122.00 L 153.37,131.56 L 146.51,141.00 L 134.80,135.91 L 123.40,144.19 L 124.62,156.90 L 113.52,160.51 L 107.05,149.50 L 92.95,149.50 L 86.48,160.51 L 75.38,156.90 L 76.60,144.19 L 65.20,135.91 L 53.49,141.00 L 46.63,131.56 L 55.10,122.00 L 50.74,108.60 L 38.28,105.83 L 38.28,94.17 L 50.74,91.40 L 55.10,78.00 L 46.63,68.44 L 53.49,59.00 L 65.20,64.09 L 76.60,55.81 L 75.38,43.10 L 86.48,39.49 L 92.95,50.50 L 107.05,50.50 L 113.52,39.49 L 124.62,43.10 L 123.40,55.81 L 134.80,64.09 L 146.51,59.00 L 153.37,68.44 L 144.90,78.00 Z"
+              fill="none" stroke="#9CA3AF" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="100" cy="100" r="34" fill="none" stroke="#9CA3AF" stroke-width="3"/>
+          </g>
+          <path d="M 72,72 L 91,72 A 6,6 0 0 1 103,72 L 128,72 L 128,90 A 10,10 0 0 1 128,110 L 128,128 L 103,128 A 6,6 0 0 1 91,128 L 72,128 L 72,110 A 10,10 0 0 0 72,90 Z" fill="#D9691E"/>
+
+          <path class="route-dash route-anim" d="M 162,96 C 200,80 220,66 244,52" fill="none" stroke="#D9691E" stroke-width="2" stroke-linecap="round"/>
+          <path class="route-dash route-anim" d="M 158,120 C 195,138 216,144 244,138" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round"/>
+
+          <g transform="translate(248,26) scale(0.62)">
+            <path d="M 14.5,0.0 L 15.0,4.0 L 15.4,8.0 L 15.6,12.0 L 15.6,16.0 L 15.4,20.0 L 15.0,24.0 L 14.5,28.0 L 13.9,32.0 L 13.4,36.0 L 12.9,40.0 L 12.6,44.0 L 12.4,48.0 L 12.5,52.0 L 12.7,56.0 L 13.1,60.0 L 13.6,64.0 L 14.2,68.0 L 14.8,72.0 L 15.2,76.0 L 15.5,80.0 L 15.6,84.0 L 15.5,88.0 L 15.0,92.0 L 14.1,96.0 L 13.1,100.0 L 12.0,104.0 L 11.0,108.0 L 10.2,112.0 L 9.5,116.0 L 9.0,120.0 L 8.7,124.0 L 8.6,128.0 L 8.6,132.0 L 8.7,136.0 L 8.8,140.0 L 8.9,144.0 L 8.8,148.0 L 8.5,152.0 L 8.0,156.0 L 7.4,160.0 L 18.6,160.0 L 18.6,160.0 L 18.5,156.0 L 18.4,152.0 L 18.3,148.0 L 18.3,144.0 L 18.2,140.0 L 18.3,136.0 L 18.4,132.0 L 18.6,128.0 L 19.0,124.0 L 19.4,120.0 L 19.8,116.0 L 20.4,112.0 L 20.9,108.0 L 21.5,104.0 L 22.0,100.0 L 22.5,96.0 L 22.9,92.0 L 23.2,88.0 L 23.2,84.0 L 23.1,80.0 L 23.0,76.0 L 22.7,72.0 L 22.4,68.0 L 22.1,64.0 L 21.8,60.0 L 21.5,56.0 L 21.2,52.0 L 21.0,48.0 L 20.8,44.0 L 20.8,40.0 L 20.9,36.0 L 21.0,32.0 L 21.2,28.0 L 21.5,24.0 L 21.8,20.0 L 22.1,16.0 L 22.5,12.0 L 22.8,8.0 L 23.0,4.0 L 23.1,0.0 Z"
+              fill="#9CA3AF" opacity="0.9"/>
+            <circle cx="19" cy="6" r="3.4" fill="#D9691E"/>
+            <g transform="translate(5,148)">
+              <rect x="0" y="4" width="19" height="15" fill="none" stroke="#D9691E" stroke-width="2"/>
+              <path d="M 0,4 L 9.5,-2.5 L 19,4" fill="none" stroke="#D9691E" stroke-width="2" stroke-linejoin="round"/>
+              <line x1="9.5" y1="4" x2="9.5" y2="19" stroke="#D9691E" stroke-width="1.6"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="container stat-strip">
+      <div class="stat">
+        <svg><use href="#stat-tag"/></svg>
+        <div><div class="stat-num">Precio zona franca</div><div class="stat-label">Compramos y despachamos desde Iquique</div></div>
+      </div>
+      <div class="stat">
+        <svg><use href="#stat-clock"/></svg>
+        <div><div class="stat-num">&lt; 24 horas</div><div class="stat-label">Tiempo de respuesta a tu cotización</div></div>
+      </div>
+      <div class="stat">
+        <svg><use href="#stat-map"/></svg>
+        <div><div class="stat-num">16 regiones</div><div class="stat-label">Despacho a nivel nacional</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="metal-seam"></div>
+
+  <section class="section" id="catalogo">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Catálogo</p>
+        <h2>Busca por categoría o marca</h2>
+        <p>Aunque no mantenemos stock propio, trabajamos con una red de desarmadurías y proveedores que nos permite cubrir prácticamente cualquier categoría, marca y año.</p>
+      </div>
+
+      <div class="cat-grid">
+        <div class="cat-card"><svg><use href="#cat-motor"/></svg><div class="cat-name">Motor</div><div class="cat-hint">Blocks, pistones, bombas, correas</div></div>
+        <div class="cat-card"><svg><use href="#cat-frenos"/></svg><div class="cat-name">Frenos</div><div class="cat-hint">Discos, pastillas, cilindros</div></div>
+        <div class="cat-card"><svg><use href="#cat-suspension"/></svg><div class="cat-name">Suspensión y dirección</div><div class="cat-hint">Amortiguadores, rótulas, cremalleras</div></div>
+        <div class="cat-card"><svg><use href="#cat-electrico"/></svg><div class="cat-name">Eléctrico</div><div class="cat-hint">Alternadores, partidas, sensores</div></div>
+        <div class="cat-card"><svg><use href="#cat-carroceria"/></svg><div class="cat-name">Carrocería y espejos</div><div class="cat-hint">Parachoques, tapas, espejos</div></div>
+        <div class="cat-card"><svg><use href="#cat-transmision"/></svg><div class="cat-name">Transmisión</div><div class="cat-hint">Cajas, embragues, homocinéticas</div></div>
+        <div class="cat-card"><svg><use href="#cat-clima"/></svg><div class="cat-name">Climatización</div><div class="cat-hint">Compresores, radiadores, condensadores</div></div>
+        <div class="cat-card"><svg><use href="#cat-luces"/></svg><div class="cat-name">Iluminación</div><div class="cat-hint">Focos, ópticas, neblineros</div></div>
+      </div>
+
+      <p class="cat-note">¿No encuentras tu categoría o repuesto? <a href="#cotizador">Cotiza igual, lo buscamos por ti →</a></p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="cotizador">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Cotizador</p>
+        <h2>Cuéntanos qué necesitas</h2>
+        <p>Con la marca, modelo, año y el repuesto que buscas, nuestro equipo cotiza con desarmadurías y contactos de confianza y te responde en menos de 24 horas.</p>
+      </div>
+
+      <div class="quote-wrap">
+        <div class="quote-promise">
+          <div class="promise-item">
+            <svg><use href="#prom-clock"/></svg>
+            <div><div class="promise-title">Respuesta en menos de 24 horas</div><div class="promise-text">Nuestro equipo cotiza directamente con desarmadurías por teléfono.</div></div>
+          </div>
+          <div class="promise-item">
+            <svg><use href="#prom-search"/></svg>
+            <div><div class="promise-title">Buscamos aunque no aparezca en el catálogo</div><div class="promise-text">Trabajamos con una red de contactos a nivel nacional.</div></div>
+          </div>
+          <div class="promise-item">
+            <svg><use href="#prom-chat"/></svg>
+            <div><div class="promise-title">Te contactamos por WhatsApp</div><div class="promise-text">Recibes opciones, estado y precio final antes de pagar.</div></div>
+          </div>
+          <div class="promise-item">
+            <svg><use href="#prom-shield"/></svg>
+            <div><div class="promise-title">Pagas solo cuando confirmas</div><div class="promise-text">Cotizar no tiene costo ni compromiso.</div></div>
+          </div>
+        </div>
+
+        <form class="quote-form" id="quoteForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="qMarca">Marca <span class="req">*</span></label>
+              <input id="qMarca" name="marca" type="text" placeholder="Ej: Chevrolet" required>
+            </div>
+            <div class="field">
+              <label for="qModelo">Modelo <span class="req">*</span></label>
+              <input id="qModelo" name="modelo" type="text" placeholder="Ej: Sail" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="qAnio">Año <span class="req">*</span></label>
+              <input id="qAnio" name="anio" type="number" placeholder="Ej: 2016" min="1970" max="2026" required>
+            </div>
+            <div class="field">
+              <label for="qRepuesto">Repuesto que necesitas <span class="req">*</span></label>
+              <input id="qRepuesto" name="repuesto" type="text" placeholder="Ej: Alternador" required>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="qNombre">Nombre</label>
+              <input id="qNombre" name="nombre" type="text" placeholder="Tu nombre">
+            </div>
+            <div class="field">
+              <label for="qContacto">WhatsApp o correo</label>
+              <input id="qContacto" name="contacto" type="text" placeholder="+56 9 ... o tu correo">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Enviar cotización</button>
+
+          <div class="quote-result" id="quoteResult">
+            <div class="qr-code tabular" id="qrCode">#PE-000000</div>
+            <div class="qr-text" id="qrText">Solicitud recibida. Te contactamos antes de 24 horas.</div>
+            <a href="#seguimiento" class="btn btn-ghost" id="qrTrackLink" style="margin-top:8px; align-self:flex-start;">Ver seguimiento →</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="seguimiento">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Seguimiento</p>
+        <h2>Sigue el estado de tu pedido</h2>
+        <p>Ingresa tu número de solicitud para ver en qué etapa está. Si acabas de cotizar, ya cargamos tu número más reciente abajo.</p>
+      </div>
+
+      <div class="track-box">
+        <div class="track-search">
+          <input type="text" id="trackInput" placeholder="Ej: PE-104822">
+          <button class="btn btn-primary" id="trackBtn">Buscar</button>
+        </div>
+
+        <div class="track-steps" id="trackSteps">
+          <div class="track-step done" data-step="1">
+            <div class="step-dot"><svg style="width:18px;height:18px;color:inherit"><use href="#ico-check"/></svg></div>
+            <div class="step-label">Recibida</div>
+            <div class="step-sub">Tu solicitud llegó a nuestro equipo</div>
+          </div>
+          <div class="track-step current" data-step="2">
+            <div class="step-dot">2</div>
+            <div class="step-label">Cotizando</div>
+            <div class="step-sub">Estamos contactando desarmadurías</div>
+          </div>
+          <div class="track-step" data-step="3">
+            <div class="step-dot"><svg style="width:18px;height:18px;color:inherit"><use href="#ico-truck"/></svg></div>
+            <div class="step-label">Enviado</div>
+            <div class="step-sub">En camino con tu courier asignado</div>
+          </div>
+        </div>
+        <p class="track-hint" id="trackHint">Mostrando estado de ejemplo. Escribe tu número de solicitud real y presiona Buscar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="cobertura">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Cobertura y despacho</p>
+        <h2>Desde la zona franca de Iquique a todo Chile</h2>
+        <p>La ubicación de nuestra base en Tarapacá nos da una ventaja de precio real frente al resto del país, y despachamos a las 16 regiones sin excepción.</p>
+      </div>
+
+      <div class="coverage-wrap">
+        <div class="coverage-map">
+          <svg viewBox="0 0 82 175">
+            <path d="M 14.5,0.0 L 15.0,4.0 L 15.4,8.0 L 15.6,12.0 L 15.6,16.0 L 15.4,20.0 L 15.0,24.0 L 14.5,28.0 L 13.9,32.0 L 13.4,36.0 L 12.9,40.0 L 12.6,44.0 L 12.4,48.0 L 12.5,52.0 L 12.7,56.0 L 13.1,60.0 L 13.6,64.0 L 14.2,68.0 L 14.8,72.0 L 15.2,76.0 L 15.5,80.0 L 15.6,84.0 L 15.5,88.0 L 15.0,92.0 L 14.1,96.0 L 13.1,100.0 L 12.0,104.0 L 11.0,108.0 L 10.2,112.0 L 9.5,116.0 L 9.0,120.0 L 8.7,124.0 L 8.6,128.0 L 8.6,132.0 L 8.7,136.0 L 8.8,140.0 L 8.9,144.0 L 8.8,148.0 L 8.5,152.0 L 8.0,156.0 L 7.4,160.0 L 18.6,160.0 L 18.6,160.0 L 18.5,156.0 L 18.4,152.0 L 18.3,148.0 L 18.3,144.0 L 18.2,140.0 L 18.3,136.0 L 18.4,132.0 L 18.6,128.0 L 19.0,124.0 L 19.4,120.0 L 19.8,116.0 L 20.4,112.0 L 20.9,108.0 L 21.5,104.0 L 22.0,100.0 L 22.5,96.0 L 22.9,92.0 L 23.2,88.0 L 23.2,84.0 L 23.1,80.0 L 23.0,76.0 L 22.7,72.0 L 22.4,68.0 L 22.1,64.0 L 21.8,60.0 L 21.5,56.0 L 21.2,52.0 L 21.0,48.0 L 20.8,44.0 L 20.8,40.0 L 20.9,36.0 L 21.0,32.0 L 21.2,28.0 L 21.5,24.0 L 21.8,20.0 L 22.1,16.0 L 22.5,12.0 L 22.8,8.0 L 23.0,4.0 L 23.1,0.0 Z"
+              transform="translate(18,8)" fill="#2C3036" stroke="#6B7280" stroke-width="0.4"/>
+            <circle cx="34" cy="14" r="2.6" fill="#D9691E"/>
+            <text x="40" y="17" font-family="Work Sans, sans-serif" font-size="6.5" fill="#F4F1EC">Iquique</text>
+            <circle cx="33" cy="55" r="1.8" fill="#9CA3AF"/>
+            <circle cx="31" cy="95" r="1.8" fill="#9CA3AF"/>
+            <circle cx="27" cy="130" r="1.8" fill="#9CA3AF"/>
+            <circle cx="25" cy="158" r="1.8" fill="#9CA3AF"/>
+          </svg>
+        </div>
+
+        <div style="display:grid; gap:28px;">
+          <div>
+            <h3 style="font-family:var(--font-body); font-weight:700; font-size:1rem; margin-bottom:14px;">Zonas y tiempos estimados</h3>
+            <div class="tier-list">
+              <div class="tier"><span class="tier-badge">1–2 días</span><div><div class="tier-title">Norte Grande</div><div class="tier-text">Arica y Parinacota a Antofagasta — la más rápida por cercanía a nuestra base.</div></div></div>
+              <div class="tier"><span class="tier-badge">2–4 días</span><div><div class="tier-title">Norte Chico, Centro y RM</div><div class="tier-text">Atacama, Coquimbo, Valparaíso, Metropolitana, O'Higgins y Maule.</div></div></div>
+              <div class="tier"><span class="tier-badge">3–5 días</span><div><div class="tier-title">Sur</div><div class="tier-text">Ñuble, Biobío, La Araucanía, Los Ríos y Los Lagos.</div></div></div>
+              <div class="tier"><span class="tier-badge">5–8 días</span><div><div class="tier-title">Austral y zonas extremas</div><div class="tier-text">Aysén, Magallanes y localidades rurales sin cobertura directa de couriers.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;">
+        <h3 style="font-family:var(--font-body); font-weight:700; font-size:1rem; margin-bottom:14px;">Cómo despachamos</h3>
+        <div class="tier-list" style="grid-template-columns:1fr; display:grid;">
+          <div class="tier"><span class="tier-badge">Hoy</span><div><div class="tier-title">Agregador multi-courier</div><div class="tier-text">Partimos con un agregador (Shipit, Envíame) que cotiza y despacha con varios couriers, sin contrato ni mínimo mensual — ideal para bajo volumen.</div></div></div>
+          <div class="tier"><span class="tier-badge">Próxima etapa</span><div><div class="tier-title">Tarifa directa con volumen</div><div class="tier-text">Al crecer, negociamos directo con Starken (cobertura y embalaje certificado para regiones) o Chilexpress (más rápido, mayor costo).</div></div></div>
+          <div class="tier"><span class="tier-badge">Respaldo</span><div><div class="tier-title">Correos de Chile</div><div class="tier-text">Para zonas extremas o rurales que otros couriers no cubren bien.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <svg viewBox="0 0 200 200"><use href="#mark-compact"/></svg>
+          <span class="wordmark">PIEZA <em>EXACTA</em></span>
+        </a>
+        <p class="footer-tagline">Repuestos de auto de segunda mano, cotizados con precio de zona franca y despachados desde Iquique a todo Chile.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sitio</h4>
+        <ul>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#cotizador">Cotizador</a></li>
+          <li><a href="#seguimiento">Seguimiento</a></li>
+          <li><a href="#cobertura">Cobertura</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="https://wa.me/56935292138" target="_blank" rel="noopener">WhatsApp +56 9 3529 2138</a></li>
+          <li><span>Iquique, Región de Tarapacá</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Medios de pago</h4>
+        <div class="pay-row">
+          <span class="pay-chip">Transferencia</span>
+          <span class="pay-chip pending">Mercado Pago / Webpay (por definir)</span>
+        </div>
+        <p style="margin-top:14px;" class="footer-tagline">Redes <span class="pending">@piezaexacta (por confirmar)</span> y dominio <span class="pending">piezaexacta.cl (por confirmar)</span>.</p>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <span>© <span id="year"></span> Pieza Exacta. Todos los derechos reservados.</span>
+      <span>No mantenemos stock propio: cotizamos y gestionamos cada repuesto con nuestra red de desarmadurías y proveedores.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click', function(){
+    const isOpen = mobileMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      mobileMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  let lastOrder = null;
+
+  function genOrderCode(){
+    const n = Math.floor(100000 + Math.random() * 900000);
+    return 'PE-' + n;
+  }
+
+  const quoteForm = document.getElementById('quoteForm');
+  const quoteResult = document.getElementById('quoteResult');
+  const qrCode = document.getElementById('qrCode');
+  const qrText = document.getElementById('qrText');
+
+  quoteForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const marca = document.getElementById('qMarca').value.trim();
+    const repuesto = document.getElementById('qRepuesto').value.trim();
+    const code = genOrderCode();
+    lastOrder = { code: code, step: 1, marca: marca, repuesto: repuesto };
+
+    qrCode.textContent = '#' + code;
+    qrText.textContent = 'Solicitud recibida para ' + (repuesto || 'tu repuesto') +
+      (marca ? (' (' + marca + ')') : '') + '. Te contactamos antes de 24 horas.';
+    quoteResult.classList.add('show');
+
+    document.getElementById('trackInput').value = code;
+  });
+
+  const trackSteps = document.getElementById('trackSteps');
+  const trackHint = document.getElementById('trackHint');
+  const trackBtn = document.getElementById('trackBtn');
+  const trackInput = document.getElementById('trackInput');
+
+  function renderTrack(step){
+    const steps = trackSteps.querySelectorAll('.track-step');
+    steps.forEach(function(el){
+      const n = parseInt(el.getAttribute('data-step'), 10);
+      el.classList.remove('done','current');
+      if(n < step) el.classList.add('done');
+      else if(n === step) el.classList.add('current');
+    });
+  }
+
+  trackBtn.addEventListener('click', function(){
+    const val = trackInput.value.trim().toUpperCase();
+    if(lastOrder && val === lastOrder.code){
+      renderTrack(lastOrder.step);
+      trackHint.textContent = 'Solicitud ' + lastOrder.code + ': recibida y en cotización con nuestro equipo.';
+    } else if(val){
+      renderTrack(2);
+      trackHint.textContent = 'No encontramos "' + val + '" — te mostramos un estado de ejemplo. Escríbenos si tu pedido lleva más de 24 horas sin novedades.';
+    } else {
+      trackHint.textContent = 'Ingresa un número de solicitud para buscarlo.';
+    }
+  });
+</script>
+
+</body>
+</html>
