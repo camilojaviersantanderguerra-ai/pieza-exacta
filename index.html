@@ -763,22 +763,17 @@
       <div class="section-head">
         <p class="eyebrow">Seguimiento</p>
         <h2>Sigue el estado de tu pedido</h2>
-        <p>Ingresa tu número de solicitud para ver en qué etapa está. Si acabas de cotizar, ya cargamos tu número más reciente abajo.</p>
+        <p>El seguimiento en línea con estado en tiempo real todavía no existe — lo resolvemos directo por WhatsApp, sin vueltas. Escríbenos con tu número de solicitud y te respondemos con la etapa real de tu pedido.</p>
       </div>
 
       <div class="track-box">
-        <div class="track-search">
-          <input type="text" id="trackInput" placeholder="Ej: PE-104822">
-          <button class="btn btn-primary" id="trackBtn">Buscar</button>
-        </div>
-
         <div class="track-steps" id="trackSteps">
-          <div class="track-step done" data-step="1">
+          <div class="track-step" data-step="1">
             <div class="step-dot"><svg style="width:18px;height:18px;color:inherit"><use href="#ico-check"/></svg></div>
             <div class="step-label">Recibida</div>
             <div class="step-sub">Tu solicitud llegó a nuestro equipo</div>
           </div>
-          <div class="track-step current" data-step="2">
+          <div class="track-step" data-step="2">
             <div class="step-dot">2</div>
             <div class="step-label">Cotizando</div>
             <div class="step-sub">Estamos contactando desarmadurías</div>
@@ -786,10 +781,11 @@
           <div class="track-step" data-step="3">
             <div class="step-dot"><svg style="width:18px;height:18px;color:inherit"><use href="#ico-truck"/></svg></div>
             <div class="step-label">Enviado</div>
-            <div class="step-sub">En camino con tu courier asignado</div>
+            <div class="step-sub">En camino, con el código de tu courier asignado</div>
           </div>
         </div>
-        <p class="track-hint" id="trackHint">Mostrando estado de ejemplo. Escribe tu número de solicitud real y presiona Buscar.</p>
+        <p class="track-hint" id="trackHint">Ten a mano tu número de solicitud (ej: #PE-104822) y escríbenos por WhatsApp para saber en qué etapa va.</p>
+        <a href="https://wa.me/56935292138" id="trackWhatsappBtn" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:14px; display:inline-flex;">Escribir por WhatsApp</a>
       </div>
     </div>
   </section>
@@ -805,14 +801,14 @@
       <div class="coverage-wrap">
         <div class="coverage-map">
           <svg viewBox="0 0 82 175">
-            <path d="M 14.5,0.0 L 15.0,4.0 L 15.4,8.0 L 15.6,12.0 L 15.6,16.0 L 15.4,20.0 L 15.0,24.0 L 14.5,28.0 L 13.9,32.0 L 13.4,36.0 L 12.9,40.0 L 12.6,44.0 L 12.4,48.0 L 12.5,52.0 L 12.7,56.0 L 13.1,60.0 L 13.6,64.0 L 14.2,68.0 L 14.8,72.0 L 15.2,76.0 L 15.5,80.0 L 15.6,84.0 L 15.5,88.0 L 15.0,92.0 L 14.1,96.0 L 13.1,100.0 L 12.0,104.0 L 11.0,108.0 L 10.2,112.0 L 9.5,116.0 L 9.0,120.0 L 8.7,124.0 L 8.6,128.0 L 8.6,132.0 L 8.7,136.0 L 8.8,140.0 L 8.9,144.0 L 8.8,148.0 L 8.5,152.0 L 8.0,156.0 L 7.4,160.0 L 18.6,160.0 L 18.6,160.0 L 18.5,156.0 L 18.4,152.0 L 18.3,148.0 L 18.3,144.0 L 18.2,140.0 L 18.3,136.0 L 18.4,132.0 L 18.6,128.0 L 19.0,124.0 L 19.4,120.0 L 19.8,116.0 L 20.4,112.0 L 20.9,108.0 L 21.5,104.0 L 22.0,100.0 L 22.5,96.0 L 22.9,92.0 L 23.2,88.0 L 23.2,84.0 L 23.1,80.0 L 23.0,76.0 L 22.7,72.0 L 22.4,68.0 L 22.1,64.0 L 21.8,60.0 L 21.5,56.0 L 21.2,52.0 L 21.0,48.0 L 20.8,44.0 L 20.8,40.0 L 20.9,36.0 L 21.0,32.0 L 21.2,28.0 L 21.5,24.0 L 21.8,20.0 L 22.1,16.0 L 22.5,12.0 L 22.8,8.0 L 23.0,4.0 L 23.1,0.0 Z"
-              transform="translate(18,8)" fill="#2C3036" stroke="#6B7280" stroke-width="0.4"/>
-            <circle cx="34" cy="14" r="2.6" fill="#D9691E"/>
-            <text x="40" y="17" font-family="Work Sans, sans-serif" font-size="6.5" fill="#F4F1EC">Iquique</text>
-            <circle cx="33" cy="55" r="1.8" fill="#9CA3AF"/>
-            <circle cx="31" cy="95" r="1.8" fill="#9CA3AF"/>
-            <circle cx="27" cy="130" r="1.8" fill="#9CA3AF"/>
-            <circle cx="25" cy="158" r="1.8" fill="#9CA3AF"/>
+            <path d="M 21.5,0.0 L 21.6,4.0 L 21.7,8.0 L 21.8,12.0 L 21.9,16.0 L 21.9,20.0 L 22.0,24.0 L 22.1,28.0 L 22.2,32.0 L 22.3,36.0 L 22.4,40.0 L 22.5,44.0 L 22.6,48.0 L 22.6,52.0 L 22.7,56.0 L 22.8,60.0 L 22.9,64.0 L 23.0,68.0 L 23.1,72.0 L 23.2,76.0 L 23.3,80.0 L 23.3,84.0 L 23.4,88.0 L 23.5,92.0 L 23.6,96.0 L 23.7,100.0 L 23.4,104.0 L 23.0,108.0 L 22.7,112.0 L 22.4,116.0 L 22.0,120.0 L 21.7,124.0 L 21.4,128.0 L 21.0,132.0 L 20.7,136.0 L 20.4,140.0 L 20.0,144.0 L 19.7,148.0 L 19.4,152.0 L 19.0,156.0 L 18.7,160.0 L 19.2,160.0 L 15.9,156.0 L 12.5,152.0 L 15.2,148.0 L 11.0,144.0 L 9.2,140.0 L 11.0,136.0 L 10.2,132.0 L 15.0,128.0 L 13.1,124.0 L 9.6,120.0 L 8.3,116.0 L 7.0,112.0 L 5.7,108.0 L 4.5,104.0 L 5.7,100.0 L 4.6,96.0 L 3.7,92.0 L 3.2,88.0 L 3.0,84.0 L 3.2,80.0 L 3.8,76.0 L 4.8,72.0 L 6.0,68.0 L 7.3,64.0 L 9.2,60.0 L 8.0,56.0 L 7.9,52.0 L 8.8,48.0 L 10.2,44.0 L 11.1,40.0 L 12.0,36.0 L 12.9,32.0 L 13.8,28.0 L 14.7,24.0 L 15.6,20.0 L 14.5,16.0 L 12.1,12.0 L 11.6,8.0 L 13.1,4.0 L 16.0,0.0 Z"
+              transform="translate(27.84,8) scale(0.72)" fill="#2C3036" stroke="#6B7280" stroke-width="0.55"/>
+            <circle cx="43.3" cy="10.3" r="2.6" fill="#D9691E"/>
+            <text x="50.3" y="13.3" font-family="Work Sans, sans-serif" font-size="6.5" fill="#F4F1EC">Iquique</text>
+            <circle cx="41.9" cy="42.6" r="1.8" fill="#9CA3AF"/>
+            <circle cx="42.6" cy="71.4" r="1.8" fill="#9CA3AF"/>
+            <circle cx="39.7" cy="95.6" r="1.8" fill="#9CA3AF"/>
+            <circle cx="36.1" cy="114.0" r="1.8" fill="#9CA3AF"/>
           </svg>
         </div>
 
@@ -934,6 +930,17 @@
   const qrCode = document.getElementById('qrCode');
   const qrText = document.getElementById('qrText');
 
+  const trackHint = document.getElementById('trackHint');
+  const trackWhatsappBtn = document.getElementById('trackWhatsappBtn');
+  const WHATSAPP_NUMBER = '56935292138';
+
+  function updateTrackWhatsapp(){
+    if(!lastOrder) return;
+    const msg = 'Hola! Quiero saber el estado de mi solicitud ' + lastOrder.code;
+    trackWhatsappBtn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+    trackHint.textContent = 'Ya dejamos tu número de solicitud #' + lastOrder.code + ' listo en el mensaje — solo presiona el botón y lo enviamos por ti.';
+  }
+
   quoteForm.addEventListener('submit', function(e){
     e.preventDefault();
     const marca = document.getElementById('qMarca').value.trim();
@@ -946,35 +953,7 @@
       (marca ? (' (' + marca + ')') : '') + '. Te contactamos antes de 24 horas.';
     quoteResult.classList.add('show');
 
-    document.getElementById('trackInput').value = code;
-  });
-
-  const trackSteps = document.getElementById('trackSteps');
-  const trackHint = document.getElementById('trackHint');
-  const trackBtn = document.getElementById('trackBtn');
-  const trackInput = document.getElementById('trackInput');
-
-  function renderTrack(step){
-    const steps = trackSteps.querySelectorAll('.track-step');
-    steps.forEach(function(el){
-      const n = parseInt(el.getAttribute('data-step'), 10);
-      el.classList.remove('done','current');
-      if(n < step) el.classList.add('done');
-      else if(n === step) el.classList.add('current');
-    });
-  }
-
-  trackBtn.addEventListener('click', function(){
-    const val = trackInput.value.trim().toUpperCase();
-    if(lastOrder && val === lastOrder.code){
-      renderTrack(lastOrder.step);
-      trackHint.textContent = 'Solicitud ' + lastOrder.code + ': recibida y en cotización con nuestro equipo.';
-    } else if(val){
-      renderTrack(2);
-      trackHint.textContent = 'No encontramos "' + val + '" — te mostramos un estado de ejemplo. Escríbenos si tu pedido lleva más de 24 horas sin novedades.';
-    } else {
-      trackHint.textContent = 'Ingresa un número de solicitud para buscarlo.';
-    }
+    updateTrackWhatsapp();
   });
 </script>
 
