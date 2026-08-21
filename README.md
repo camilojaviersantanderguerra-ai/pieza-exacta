@@ -3,6 +3,8 @@
 Sitio web de Pieza Exacta — repuestos de auto de segunda mano, cotizados con
 precio de zona franca y despachados desde Iquique a todo Chile.
 
+Sitio en línea: https://pieza-exacta.vercel.app
+
 ## Contenido
 
 Es un sitio estático de una sola página (`index.html`), sin build step ni
