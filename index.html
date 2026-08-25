@@ -751,7 +751,8 @@
           <div class="quote-result" id="quoteResult">
             <div class="qr-code tabular" id="qrCode">#PE-000000</div>
             <div class="qr-text" id="qrText">Solicitud recibida. Te contactamos antes de 24 horas.</div>
-            <a href="#seguimiento" class="btn btn-ghost" id="qrTrackLink" style="margin-top:8px; align-self:flex-start;">Ver seguimiento →</a>
+            <a href="https://wa.me/56935292138" id="qrWhatsappBtn" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:12px; align-self:flex-start;">Enviar por WhatsApp →</a>
+            <a href="#seguimiento" class="btn btn-ghost" id="qrTrackLink" style="margin-top:8px; align-self:flex-start;">Ver seguimiento</a>
           </div>
         </form>
       </div>
@@ -836,6 +837,26 @@
     </div>
   </section>
 
+  <!-- ============ GARANTÍA Y DATOS ============ -->
+  <section class="section section-alt" id="legal">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Garantía y datos</p>
+        <h2>Información para el consumidor</h2>
+        <p>Repuestos de auto de segunda mano vendidos por [Tu nombre completo o Razón Social] — RUT [xx.xxx.xxx-x], Iquique, Región de Tarapacá. Contacto: WhatsApp +56 9 3529 2138.</p>
+      </div>
+
+      <div class="tier-list" style="grid-template-columns:1fr; display:grid; gap:20px;">
+        <div class="tier"><span class="tier-badge">Estado</span><div><div class="tier-title">Repuestos usados, verificados antes de despachar</div><div class="tier-text">Cada repuesto se revisa según su estado real antes de cotizarlo; te contamos el estado exacto (funcional, con detalle estético, etc.) antes de que confirmes la compra.</div></div></div>
+        <div class="tier"><span class="tier-badge">Garantía</span><div><div class="tier-title">Cambio o devolución si el repuesto no corresponde</div><div class="tier-text">Si el repuesto llega dañado en el envío o no corresponde a lo cotizado (marca, modelo o año), gestionamos cambio o devolución del dinero. Escríbenos por WhatsApp dentro de las 48 horas de recibido, adjuntando fotos.</div></div></div>
+        <div class="tier"><span class="tier-badge">Ley 19.496</span><div><div class="tier-title">Derecho a retracto en compras a distancia</div><div class="tier-text">Como toda compra por internet, aplica el derecho a retracto de la Ley del Consumidor dentro de los plazos legales, salvo las excepciones que la misma ley establece. Para ejercerlo, contáctanos por WhatsApp.</div></div></div>
+        <div class="tier"><span class="tier-badge">Datos</span><div><div class="tier-title">Tus datos solo se usan para cotizar y despachar</div><div class="tier-text">Los datos que dejas en el cotizador (nombre, contacto, datos del vehículo) se usan únicamente para responder tu solicitud y coordinar el envío — no se comparten con terceros ni se usan para otro fin.</div></div></div>
+      </div>
+
+      <p style="margin-top:28px; color:var(--text-faint); font-size:0.82rem;">Esta información es un resumen orientativo y no reemplaza asesoría legal. Puedes revisar tus derechos como consumidor en <a href="https://www.sernac.cl" target="_blank" rel="noopener" style="color:inherit;">sernac.cl</a>.</p>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -856,6 +877,7 @@
           <li><a href="#cotizador">Cotizador</a></li>
           <li><a href="#seguimiento">Seguimiento</a></li>
           <li><a href="#cobertura">Cobertura</a></li>
+          <li><a href="#legal">Garantía y datos</a></li>
         </ul>
       </div>
 
@@ -871,7 +893,7 @@
         <h4>Medios de pago</h4>
         <div class="pay-row">
           <span class="pay-chip">Transferencia</span>
-          <span class="pay-chip pending">Mercado Pago / Webpay (por definir)</span>
+          <span class="pay-chip pending">Mercado Pago (próximamente)</span>
         </div>
         <p style="margin-top:14px;" class="footer-tagline">Redes <span class="pending">@piezaexacta (por confirmar)</span> y dominio <span class="pending">piezaexacta.cl (por confirmar)</span>.</p>
       </div>
@@ -932,6 +954,7 @@
 
   const trackHint = document.getElementById('trackHint');
   const trackWhatsappBtn = document.getElementById('trackWhatsappBtn');
+  const qrWhatsappBtn = document.getElementById('qrWhatsappBtn');
   const WHATSAPP_NUMBER = '56935292138';
 
   function updateTrackWhatsapp(){
@@ -944,14 +967,28 @@
   quoteForm.addEventListener('submit', function(e){
     e.preventDefault();
     const marca = document.getElementById('qMarca').value.trim();
+    const modelo = document.getElementById('qModelo').value.trim();
+    const anio = document.getElementById('qAnio').value.trim();
     const repuesto = document.getElementById('qRepuesto').value.trim();
+    const nombre = document.getElementById('qNombre').value.trim();
+    const contacto = document.getElementById('qContacto').value.trim();
     const code = genOrderCode();
     lastOrder = { code: code, step: 1, marca: marca, repuesto: repuesto };
 
     qrCode.textContent = '#' + code;
-    qrText.textContent = 'Solicitud recibida para ' + (repuesto || 'tu repuesto') +
-      (marca ? (' (' + marca + ')') : '') + '. Te contactamos antes de 24 horas.';
+    qrText.textContent = 'Presiona el botón para enviarnos por WhatsApp tu solicitud ' + code + '. Guarda el código para el seguimiento.';
     quoteResult.classList.add('show');
+
+    const lines = [
+      'Hola! Quiero cotizar un repuesto (solicitud ' + code + ')',
+      'Marca: ' + (marca || '-'),
+      'Modelo: ' + (modelo || '-'),
+      'Año: ' + (anio || '-'),
+      'Repuesto: ' + (repuesto || '-')
+    ];
+    if (nombre) lines.push('Nombre: ' + nombre);
+    if (contacto) lines.push('Contacto: ' + contacto);
+    qrWhatsappBtn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
 
     updateTrackWhatsapp();
   });
