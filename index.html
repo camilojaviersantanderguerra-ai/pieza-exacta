@@ -2,8 +2,26 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Pieza Exacta</title>
+<title>Repuestos usados para tu auto, cotizados en 24 horas | Pieza Exacta</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="No encuentras el repuesto de tu auto? Dinos marca, modelo y ano y lo buscamos en nuestra red de desarmadurias. Respuesta en menos de 24 horas, precio de zona franca y despacho a todo Chile.">
+<link rel="canonical" href="https://www.piezaexacta.cl/">
+<meta name="theme-color" content="#15171A">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pieza Exacta">
+<meta property="og:locale" content="es_CL">
+<meta property="og:url" content="https://www.piezaexacta.cl/">
+<meta property="og:title" content="No encuentras el repuesto de tu auto? Nosotros lo buscamos.">
+<meta property="og:description" content="Dinos marca, modelo, ano y que necesitas. Cotizamos con nuestra red de desarmadurias y te respondemos en menos de 24 horas. Despacho a todo Chile.">
+<meta property="og:image" content="https://www.piezaexacta.cl/og-piezaexacta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="No encuentras el repuesto de tu auto? Nosotros lo buscamos.">
+<meta name="twitter:description" content="Cotiza con Pieza Exacta: respuesta en menos de 24 horas y despacho a todo Chile.">
+<meta name="twitter:image" content="https://www.piezaexacta.cl/og-piezaexacta.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2315171A'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%239CA3AF' stroke-width='7'/%3E%3Crect x='50' y='50' width='22' height='22' fill='%23D9691E'/%3E%3Crect x='28' y='28' width='22' height='22' fill='%23D9691E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -502,8 +520,115 @@
   }
   @media (max-width: 860px){ .footer-grid{ grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px){ .footer-grid{ grid-template-columns: 1fr; } }
+
+  /* ---- Como funciona ---- */
+  .how-grid{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .how-step{
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .how-num{ font-family: var(--font-display); font-size: 1.7rem; line-height: 1; color: var(--accent); letter-spacing: 0.02em; }
+  .how-title{ font-weight: 600; font-size: 0.98rem; }
+  .how-text{ color: var(--text-dim); font-size: 0.87rem; }
+  .how-note{ margin-top: 28px; color: var(--text-dim); font-size: 0.95rem; }
+  .how-note a{ color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 980px){ .how-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px){ .how-grid{ grid-template-columns: 1fr; } }
+
+  /* ---- FAQ ---- */
+  .faq-list{ display: grid; gap: 10px; max-width: 880px; }
+  .faq-item{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+  .faq-item summary{
+    cursor: pointer; padding: 16px 18px; font-weight: 600; font-size: 0.98rem;
+    list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display: none; }
+  .faq-item summary::after{ content: "+"; color: var(--accent); font-size: 1.4rem; line-height: 1; flex-shrink: 0; }
+  .faq-item[open] summary::after{ content: "\2013"; }
+  .faq-item[open]{ border-color: var(--line-strong); }
+  .faq-a{ padding: 0 18px 18px; color: var(--text-dim); font-size: 0.93rem; }
+  .faq-a a{ color: var(--accent); }
+
+  /* ---- Boton flotante de WhatsApp ---- */
+  .wa-float{
+    position: fixed; right: 18px; bottom: 18px; z-index: 90;
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--accent); color: #15100a;
+    font-family: var(--font-body); font-weight: 700; font-size: 0.88rem;
+    padding: 12px 17px; border-radius: 40px; text-decoration: none;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,0.75);
+  }
+  .wa-float:hover{ background: var(--accent-bright); }
+  .wa-float svg{ width: 19px; height: 19px; flex-shrink: 0; }
+  @media (max-width: 560px){ .wa-float{ right: 14px; bottom: 14px; font-size: 0.85rem; padding: 12px 15px; } }
+  @media print{ .wa-float{ display: none; } }
+
+  .form-note{ color: var(--text-faint); font-size: 0.82rem; margin-top: 10px; text-align: center; }
 </style>
-<meta name="description" content="Repuestos de auto usados con despacho a todo Chile desde la zona franca de Iquique. Cotiza en minutos y recibe respuesta en menos de 24 horas.">
+<script>
+/* ---------------------------------------------------------------------------
+   META PIXEL. Pega el ID del pixel (15 digitos) entre las comillas de abajo.
+   Mientras este vacio no se carga ningun script externo y el sitio funciona igual.
+--------------------------------------------------------------------------- */
+window.PE_PIXEL_ID = '';
+(function(){
+  if (!window.PE_PIXEL_ID) { window.fbq = window.fbq || function(){}; return; }
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', window.PE_PIXEL_ID);
+  fbq('track', 'PageView');
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoPartsStore",
+  "name": "Pieza Exacta",
+  "description": "Servicio de busqueda y cotizacion de repuestos de auto de segunda mano, con precio de zona franca de Iquique y despacho a todo Chile.",
+  "url": "https://www.piezaexacta.cl/",
+  "telephone": "+56935292138",
+  "priceRange": "$$",
+  "areaServed": { "@type": "Country", "name": "Chile" },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Iquique",
+    "addressRegion": "Tarapaca",
+    "addressCountry": "CL"
+  },
+  "makesOffer": {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "name": "Cotizacion de repuestos de auto usados",
+      "description": "Buscamos el repuesto que necesitas en nuestra red de desarmadurias y te respondemos en menos de 24 horas."
+    }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Como se que el repuesto va a servir en mi auto?","acceptedAnswer":{"@type":"Answer","text":"Cotizamos siempre contra la marca, modelo y ano exactos que nos entregas. Si tienes el numero de pieza u OEM, la coincidencia es total. Antes de que pagues te confirmamos por WhatsApp que la pieza corresponde a tu vehiculo, y si no corresponde a lo cotizado gestionamos cambio o devolucion."}},
+    {"@type":"Question","name":"Los repuestos son usados? En que estado llegan?","acceptedAnswer":{"@type":"Answer","text":"Si, trabajamos con repuestos de segunda mano provenientes de desarmadurias. Cada pieza se revisa antes de cotizarla y te contamos su estado real, incluidos los detalles esteticos, antes de que confirmes la compra."}},
+    {"@type":"Question","name":"Cuanto se demoran en cotizar? Tiene costo?","acceptedAnswer":{"@type":"Answer","text":"Cotizar es gratis y no compromete a nada. Respondemos en menos de 24 horas con las opciones que encontramos, su estado y su precio final con despacho incluido."}},
+    {"@type":"Question","name":"Como pago y cuando pago?","acceptedAnswer":{"@type":"Answer","text":"Hoy trabajamos con transferencia bancaria y estamos integrando Mercado Pago. Pagas solo cuando ya viste la cotizacion y confirmaste que la pieza te sirve, nunca antes."}},
+    {"@type":"Question","name":"Y si llega danado o no corresponde?","acceptedAnswer":{"@type":"Answer","text":"Si el repuesto llega danado en el envio o no corresponde a lo cotizado en marca, modelo o ano, gestionamos cambio o devolucion del dinero. Escribenos por WhatsApp dentro de las 48 horas de recibido adjuntando fotos."}},
+    {"@type":"Question","name":"Despachan a mi region?","acceptedAnswer":{"@type":"Answer","text":"Despachamos a las 16 regiones de Chile. Los tiempos estimados van de 1 a 2 dias en el Norte Grande, 2 a 4 dias en el centro y la Region Metropolitana, 3 a 5 dias en el sur y 5 a 8 dias en zonas australes o rurales."}},
+    {"@type":"Question","name":"Por que un repuesto usado y no uno nuevo?","acceptedAnswer":{"@type":"Answer","text":"Para muchos modelos con algunos anos, el repuesto nuevo original es caro o simplemente ya no se fabrica. Un repuesto usado original suele costar bastante menos que uno nuevo alternativo y calza exacto, porque viene del mismo modelo de vehiculo."}},
+    {"@type":"Question","name":"Emiten boleta?","acceptedAnswer":{"@type":"Answer","text":"Si. El comprobante de cada venta incluye los datos de facturacion y el RUT del vendedor."}}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -570,6 +695,7 @@
   </symbol>
 
   <symbol id="ico-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ico-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.943c0 2.096.549 4.142 1.595 5.945L0 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.359 11.949-11.945a11.87 11.87 0 0 0-3.497-8.4"/></symbol>
   <symbol id="ico-truck" viewBox="0 0 24 24"><rect x="2" y="8" width="12" height="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 11h4l3 3v2h-7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
 
 </defs>
@@ -582,9 +708,10 @@
       <span class="wordmark">PIEZA <em>EXACTA</em></span>
     </a>
     <nav class="links">
+      <a href="#como-funciona">Cómo funciona</a>
       <a href="#catalogo">Catálogo</a>
       <a href="#cotizador">Cotizador</a>
-      <a href="#seguimiento">Seguimiento</a>
+      <a href="#faq">Preguntas</a>
       <a href="#cobertura">Cobertura</a>
     </nav>
     <div class="nav-cta">
@@ -595,10 +722,12 @@
     </div>
   </div>
   <nav class="mobile-menu" id="mobileMenu">
+    <a href="#como-funciona">Cómo funciona</a>
     <a href="#catalogo">Catálogo</a>
     <a href="#cotizador">Cotizador</a>
-    <a href="#seguimiento">Seguimiento</a>
+    <a href="#faq">Preguntas frecuentes</a>
     <a href="#cobertura">Cobertura</a>
+    <a href="#seguimiento">Seguimiento</a>
     <a href="#cotizador" class="mobile-cta">Cotiza ahora</a>
   </nav>
 </header>
@@ -608,12 +737,12 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <p class="eyebrow">Repuestos usados · Despacho a todo Chile</p>
-        <h1>La pieza <span class="accent-line">exacta</span>,<br>donde sea que estés.</h1>
-        <p class="hero-sub">Cotiza el repuesto que necesitas y nuestro equipo lo busca por ti en desarmadurías y contactos de confianza — con el precio de la zona franca de Iquique y despacho a cualquier región del país.</p>
+        <p class="eyebrow">Repuestos usados · Cotizar es gratis · Despacho a todo Chile</p>
+        <h1>¿No encuentras el <span class="accent-line">repuesto</span><br>de tu auto?</h1>
+        <p class="hero-sub"><strong>Nosotros lo buscamos por ti.</strong> Dinos marca, modelo, año y qué necesitas. Llamamos a nuestra red de desarmadurías y en menos de 24 horas te decimos si existe, en qué estado está y cuánto vale. Con precio de zona franca de Iquique y despacho a cualquier región del país.</p>
         <div class="hero-actions">
-          <a href="#cotizador" class="btn btn-primary">Cotiza tu repuesto</a>
-          <a href="#catalogo" class="btn btn-ghost">Ver categorías</a>
+          <a href="#cotizador" class="btn btn-primary">Cotiza tu repuesto gratis</a>
+          <a href="https://wa.me/56935292138" data-wa="hero" target="_blank" rel="noopener" class="btn btn-ghost">Escríbenos por WhatsApp</a>
         </div>
       </div>
 
@@ -664,6 +793,46 @@
 
   <div class="metal-seam"></div>
 
+  <section class="section section-alt" id="como-funciona">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Cómo funciona</p>
+        <h2>No vendemos un catálogo. Hacemos la búsqueda por ti.</h2>
+        <p>Llamar desarmaduría por desarmaduría es una lata y casi siempre te dicen que no la tienen. Esa pega la hacemos nosotros, y solo pagas si encontramos algo que te sirve.</p>
+      </div>
+
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-num">01</div>
+          <div class="how-title">Cuéntanos qué necesitas</div>
+          <div class="how-text">Marca, modelo, año y el repuesto que buscas. Si tienes el número de pieza, mejor aún.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">02</div>
+          <div class="how-title">Buscamos en nuestra red</div>
+          <div class="how-text">Contactamos desarmadurías y proveedores de confianza hasta ubicar la pieza.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">03</div>
+          <div class="how-title">Te cotizamos en 24 horas</div>
+          <div class="how-text">Te decimos si existe, en qué estado real está y cuánto vale con despacho incluido.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">04</div>
+          <div class="how-title">Tú decides</div>
+          <div class="how-text">Si te sirve, confirmas y pagas. Si no, no pagas nada. Cotizar no compromete.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">05</div>
+          <div class="how-title">Despachamos a tu región</div>
+          <div class="how-text">Enviamos a las 16 regiones y te pasamos el código de seguimiento del courier.</div>
+        </div>
+      </div>
+
+      <p class="how-note">¿Ya sabes qué necesitas? <a href="#cotizador">Cotízalo ahora, es gratis →</a></p>
+    </div>
+  </section>
+
   <section class="section" id="catalogo">
     <div class="container">
       <div class="section-head">
@@ -692,7 +861,7 @@
       <div class="section-head">
         <p class="eyebrow">Cotizador</p>
         <h2>Cuéntanos qué necesitas</h2>
-        <p>Con la marca, modelo, año y el repuesto que buscas, nuestro equipo cotiza con desarmadurías y contactos de confianza y te responde en menos de 24 horas.</p>
+        <p>Con la marca, modelo, año y el repuesto que buscas nos basta para empezar. Cotizamos con desarmadurías y contactos de confianza y te respondemos en menos de 24 horas. Es gratis y no te compromete a nada.</p>
       </div>
 
       <div class="quote-wrap">
@@ -738,20 +907,31 @@
           </div>
           <div class="field-row">
             <div class="field">
-              <label for="qNombre">Nombre</label>
+              <label for="qMotor">Versión o motor <span style="color:var(--text-faint);font-weight:400;">(opcional)</span></label>
+              <input id="qMotor" name="motor" type="text" placeholder="Ej: 1.4 LT bencinero">
+            </div>
+            <div class="field">
+              <label for="qOem">N° de pieza u OEM <span style="color:var(--text-faint);font-weight:400;">(opcional)</span></label>
+              <input id="qOem" name="oem" type="text" placeholder="Si lo tienes a mano">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="qNombre">Nombre <span style="color:var(--text-faint);font-weight:400;">(opcional)</span></label>
               <input id="qNombre" name="nombre" type="text" placeholder="Tu nombre">
             </div>
             <div class="field">
-              <label for="qContacto">WhatsApp o correo</label>
+              <label for="qContacto">WhatsApp o correo <span style="color:var(--text-faint);font-weight:400;">(opcional)</span></label>
               <input id="qContacto" name="contacto" type="text" placeholder="+56 9 ... o tu correo">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Enviar cotización</button>
+          <button type="submit" class="btn btn-primary btn-block">Enviar mi solicitud por WhatsApp</button>
+          <p class="form-note">Cotizar es gratis y no te compromete a nada. Te respondemos en menos de 24 horas.</p>
 
           <div class="quote-result" id="quoteResult">
             <div class="qr-code tabular" id="qrCode">#PE-000000</div>
-            <div class="qr-text" id="qrText">Solicitud recibida. Te contactamos antes de 24 horas.</div>
-            <a href="https://wa.me/56935292138" id="qrWhatsappBtn" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:12px; align-self:flex-start;">Enviar por WhatsApp →</a>
+            <div class="qr-text" id="qrText">Te abrimos WhatsApp con tu solicitud ya escrita. Si no se abrió solo, usa el botón de abajo para enviárnosla.</div>
+            <a href="https://wa.me/56935292138" id="qrWhatsappBtn" data-wa="cotizador" class="btn btn-primary" target="_blank" rel="noopener" style="margin-top:12px; align-self:flex-start;">Abrir WhatsApp y enviar mi solicitud →</a>
             <a href="#seguimiento" class="btn btn-ghost" id="qrTrackLink" style="margin-top:8px; align-self:flex-start;">Ver seguimiento</a>
           </div>
         </form>
@@ -838,6 +1018,51 @@
   </section>
 
   <!-- ============ GARANTÍA Y DATOS ============ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>Lo que la gente nos pregunta antes de cotizar</h2>
+        <p>Si tu duda no está acá, escríbenos por WhatsApp y te respondemos sin compromiso.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>¿Cómo sé que el repuesto va a servir en mi auto?</summary>
+          <div class="faq-a">Cotizamos siempre contra la marca, modelo y año exactos que nos entregas, y si nos das la versión o el motor afinamos todavía más. Si tienes el número de pieza u OEM, la coincidencia es total. Antes de que pagues te confirmamos por WhatsApp que la pieza corresponde a tu vehículo, y si no corresponde a lo cotizado gestionamos cambio o devolución.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Los repuestos son usados? ¿En qué estado llegan?</summary>
+          <div class="faq-a">Sí, trabajamos con repuestos de segunda mano que vienen de desarmadurías. Cada pieza se revisa antes de cotizarla y te contamos su estado real: si es funcional, si tiene detalles estéticos, si le falta algo. No te vamos a vender una pieza describiéndola mejor de lo que está.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cuánto se demoran en cotizar? ¿Tiene algún costo?</summary>
+          <div class="faq-a">Cotizar es gratis y no compromete a nada. Respondemos en menos de 24 horas con las opciones que encontramos, su estado y su precio final con despacho incluido. Si no encontramos la pieza, también te avisamos.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo pago y cuándo pago?</summary>
+          <div class="faq-a">Hoy trabajamos con transferencia bancaria y estamos integrando Mercado Pago. Pagas solo cuando ya viste la cotización y confirmaste que la pieza te sirve, nunca antes.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Y si llega dañado o no corresponde a lo que pedí?</summary>
+          <div class="faq-a">Si el repuesto llega dañado en el envío o no corresponde a lo cotizado en marca, modelo o año, gestionamos cambio o devolución del dinero. Escríbenos por WhatsApp dentro de las 48 horas de recibido adjuntando fotos. Puedes ver el detalle en <a href="#legal">Garantía y datos</a>.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Despachan a mi región?</summary>
+          <div class="faq-a">Despachamos a las 16 regiones de Chile. Los tiempos estimados van de 1 a 2 días en el Norte Grande, 2 a 4 días en el centro y la Región Metropolitana, 3 a 5 días en el sur y 5 a 8 días en zonas australes o rurales. El detalle está en <a href="#cobertura">Cobertura y despacho</a>.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Por qué un repuesto usado y no uno nuevo?</summary>
+          <div class="faq-a">Para muchos modelos con algunos años encima, el repuesto nuevo original es caro o derechamente ya no se fabrica. Un usado original suele costar bastante menos que un nuevo alternativo y calza exacto, porque sale del mismo modelo de vehículo. Si prefieres uno nuevo, avísanos igual y te decimos si podemos conseguirlo.</div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Emiten boleta?</summary>
+          <div class="faq-a">Sí. El comprobante de cada venta incluye los datos de facturación y el RUT del vendedor.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <section class="section section-alt" id="legal">
     <div class="container">
       <div class="section-head">
@@ -850,7 +1075,7 @@
         <div class="tier"><span class="tier-badge">Estado</span><div><div class="tier-title">Repuestos usados, verificados antes de despachar</div><div class="tier-text">Cada repuesto se revisa según su estado real antes de cotizarlo; te contamos el estado exacto (funcional, con detalle estético, etc.) antes de que confirmes la compra.</div></div></div>
         <div class="tier"><span class="tier-badge">Garantía</span><div><div class="tier-title">Cambio o devolución si el repuesto no corresponde</div><div class="tier-text">Si el repuesto llega dañado en el envío o no corresponde a lo cotizado (marca, modelo o año), gestionamos cambio o devolución del dinero. Escríbenos por WhatsApp dentro de las 48 horas de recibido, adjuntando fotos.</div></div></div>
         <div class="tier"><span class="tier-badge">Ley 19.496</span><div><div class="tier-title">Derecho a retracto en compras a distancia</div><div class="tier-text">Como toda compra por internet, aplica el derecho a retracto de la Ley del Consumidor dentro de los plazos legales, salvo las excepciones que la misma ley establece. Para ejercerlo, contáctanos por WhatsApp.</div></div></div>
-        <div class="tier"><span class="tier-badge">Datos</span><div><div class="tier-title">Tus datos solo se usan para cotizar y despachar</div><div class="tier-text">Los datos que dejas en el cotizador (nombre, contacto, datos del vehículo) se usan únicamente para responder tu solicitud y coordinar el envío — no se comparten con terceros ni se usan para otro fin.</div></div></div>
+        <div class="tier"><span class="tier-badge">Datos</span><div><div class="tier-title">Tus datos solo se usan para cotizar y despachar</div><div class="tier-text">Los datos que dejas en el cotizador (nombre, contacto, datos del vehículo) se usan únicamente para responder tu solicitud y coordinar el envío. Se procesan en el servicio de formularios del sitio y en WhatsApp, y no se venden ni se ceden a terceros con fines publicitarios.</div></div></div>
       </div>
 
       <p style="margin-top:28px; color:var(--text-faint); font-size:0.82rem;">Esta información es un resumen orientativo y no reemplaza asesoría legal. Puedes revisar tus derechos como consumidor en <a href="https://www.sernac.cl" target="_blank" rel="noopener" style="color:inherit;">sernac.cl</a>.</p>
@@ -858,6 +1083,11 @@
   </section>
 
 </main>
+
+<a href="https://wa.me/56935292138" data-wa="flotante" class="wa-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-wa"/></svg>
+  <span class="wa-label">Cotiza por WhatsApp</span>
+</a>
 
 <footer>
   <div class="container">
@@ -873,8 +1103,10 @@
       <div class="footer-col">
         <h4>Sitio</h4>
         <ul>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
           <li><a href="#catalogo">Catálogo</a></li>
           <li><a href="#cotizador">Cotizador</a></li>
+          <li><a href="#faq">Preguntas frecuentes</a></li>
           <li><a href="#seguimiento">Seguimiento</a></li>
           <li><a href="#cobertura">Cobertura</a></li>
           <li><a href="#legal">Garantía y datos</a></li>
@@ -895,7 +1127,7 @@
           <span class="pay-chip">Transferencia</span>
           <span class="pay-chip pending">Mercado Pago (próximamente)</span>
         </div>
-        <p style="margin-top:14px;" class="footer-tagline">Redes <span class="pending">@piezaexacta (por confirmar)</span> y dominio <span class="pending">piezaexacta.cl (por confirmar)</span>.</p>
+        <p style="margin-top:14px;" class="footer-tagline">Sitio oficial: <a href="https://www.piezaexacta.cl/">piezaexacta.cl</a>. Cotizaciones y atención por WhatsApp.</p>
       </div>
     </div>
 
@@ -927,9 +1159,60 @@
   // brand/model/year instead of starting from a blank form.
   const qRepuestoInput = document.getElementById('qRepuesto');
   const qMarcaInput = document.getElementById('qMarca');
+  /* ---------------------------------------------------------------------
+     Tracking y atribucion
+  --------------------------------------------------------------------- */
+  const WA_BASE = 'https://wa.me/56935292138';
+
+  function peTrack(evt, params){
+    try{ if (window.PE_PIXEL_ID && window.fbq) window.fbq('track', evt, params || {}); }catch(e){}
+  }
+
+  function peOrigin(){
+    try{
+      const p = new URLSearchParams(window.location.search);
+      const parts = [p.get('utm_source'), p.get('utm_campaign'), p.get('utm_content')].filter(Boolean);
+      if (parts.length) sessionStorage.setItem('pe_origin', parts.join(' / '));
+      return sessionStorage.getItem('pe_origin') || '';
+    }catch(e){ return ''; }
+  }
+
+  function peWaLink(text){
+    const origin = peOrigin();
+    const full = origin ? (text + '\n(Origen: ' + origin + ')') : text;
+    return WA_BASE + '?text=' + encodeURIComponent(full);
+  }
+
+  /* Precarga un mensaje util en todos los botones genericos de WhatsApp */
+  document.querySelectorAll('a[data-wa]').forEach(function(a){
+    if (a.getAttribute('data-wa') === 'cotizador') return;
+    a.href = peWaLink('Hola! Necesito cotizar un repuesto para mi auto.');
+  });
+
+  /* Registra cada clic hacia WhatsApp como evento Contact */
+  document.addEventListener('click', function(e){
+    const a = e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+    if (!a) return;
+    peTrack('Contact', { content_name: a.getAttribute('data-wa') || 'link', source: peOrigin() || 'directo' });
+  });
+
+  /* Guarda una copia de cada solicitud, para no depender de que el visitante
+     complete el paso de WhatsApp. Falla en silencio si el servicio no responde. */
+  function peSaveLead(data){
+    try{
+      const dest = ['camilosantanderguerra', 'gmail.com'].join('@');
+      fetch('https://formsubmit.co/ajax/' + dest, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).catch(function(){});
+    }catch(e){}
+  }
+
   document.querySelectorAll('.cat-card').forEach(function(card){
     function goToQuote(){
       const cat = card.getAttribute('data-cat');
+      peTrack('ViewContent', { content_category: cat, content_type: 'categoria' });
       if (qRepuestoInput && cat) qRepuestoInput.value = cat;
       document.getElementById('cotizador').scrollIntoView({behavior: 'smooth'});
       if (qMarcaInput) window.setTimeout(function(){ qMarcaInput.focus(); }, 450);
@@ -966,18 +1249,18 @@
 
   quoteForm.addEventListener('submit', function(e){
     e.preventDefault();
-    const marca = document.getElementById('qMarca').value.trim();
-    const modelo = document.getElementById('qModelo').value.trim();
-    const anio = document.getElementById('qAnio').value.trim();
-    const repuesto = document.getElementById('qRepuesto').value.trim();
-    const nombre = document.getElementById('qNombre').value.trim();
-    const contacto = document.getElementById('qContacto').value.trim();
+    const val = function(id){ const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    const marca = val('qMarca');
+    const modelo = val('qModelo');
+    const anio = val('qAnio');
+    const repuesto = val('qRepuesto');
+    const motor = val('qMotor');
+    const oem = val('qOem');
+    const nombre = val('qNombre');
+    const contacto = val('qContacto');
+    const origin = peOrigin();
     const code = genOrderCode();
     lastOrder = { code: code, step: 1, marca: marca, repuesto: repuesto };
-
-    qrCode.textContent = '#' + code;
-    qrText.textContent = 'Presiona el botón para enviarnos por WhatsApp tu solicitud ' + code + '. Guarda el código para el seguimiento.';
-    quoteResult.classList.add('show');
 
     const lines = [
       'Hola! Quiero cotizar un repuesto (solicitud ' + code + ')',
@@ -986,11 +1269,42 @@
       'Año: ' + (anio || '-'),
       'Repuesto: ' + (repuesto || '-')
     ];
+    if (motor) lines.push('Versión/motor: ' + motor);
+    if (oem) lines.push('N° de pieza: ' + oem);
     if (nombre) lines.push('Nombre: ' + nombre);
     if (contacto) lines.push('Contacto: ' + contacto);
-    qrWhatsappBtn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+    if (origin) lines.push('(Origen: ' + origin + ')');
+
+    const waUrl = WA_BASE + '?text=' + encodeURIComponent(lines.join('\n'));
+    qrWhatsappBtn.href = waUrl;
+
+    qrCode.textContent = '#' + code;
+    quoteResult.classList.add('show');
+
+    /* Copia de respaldo para que la solicitud no se pierda si el visitante
+       no llega a enviar el WhatsApp. */
+    peSaveLead({
+      _subject: 'Nueva solicitud ' + code + ' - ' + (marca || '?') + ' ' + (modelo || '') + ' ' + (anio || ''),
+      _captcha: 'false',
+      solicitud: code,
+      marca: marca, modelo: modelo, anio: anio, repuesto: repuesto,
+      version_motor: motor || '-', numero_pieza: oem || '-',
+      nombre: nombre || '-', contacto: contacto || '-',
+      origen: origin || 'directo',
+      pagina: window.location.href
+    });
+
+    peTrack('Lead', {
+      content_name: repuesto || 'repuesto',
+      content_category: marca || 'sin marca',
+      source: origin || 'directo'
+    });
 
     updateTrackWhatsapp();
+
+    /* Abrimos WhatsApp de inmediato: el submit es un gesto del usuario,
+       asi que no lo bloquea el navegador. El boton queda como respaldo. */
+    try{ window.open(waUrl, '_blank', 'noopener'); }catch(err){}
   });
 </script>
 
